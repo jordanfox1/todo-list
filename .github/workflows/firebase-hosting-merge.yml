@@ -22,10 +22,6 @@ jobs:
       - name: Install pnpm
         run: npm install -g pnpm@latest
       - run: pnpm i && pnpm run build
-      - run: ls
-      - run: cd dist && ls && cat index.html
-      - run: cd public && ls && cat index.html
-      - run: echo "ran ls on dist, then public"
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'

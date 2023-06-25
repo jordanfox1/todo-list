@@ -1,4 +1,6 @@
 import './App.css'
+import { TodoContainer } from './components/todoContainer/todoContainer'
+
 
 // Import the functions you need from the SDKs you need
 // import { initializeApp } from "firebase/app";
@@ -20,9 +22,7 @@ function App() {
 
   return (
     <>
-      <h1>
-        Todo-list
-      </h1>
+    <TodoContainer />
     </>
   )
 }

@@ -22,8 +22,7 @@ jobs:
       - name: Install pnpm
         run: npm install -g pnpm@latest
       - run: pnpm i && pnpm run build
-      - run: cd src && ls
-      - run: cd dist && ls
+      - run: ls
       - run: echo "ran ls"
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:

@@ -46,4 +46,4 @@ jobs:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_TODO_LIST_82592 }}'
           channelId: live
-          projectId: todo-list-82592I
+          projectId: todo-list-82592

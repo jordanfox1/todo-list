@@ -2,37 +2,49 @@
 # https://github.com/firebase/firebase-tools
 
 name: Deploy to Firebase Hosting on merge
-'on':
+
+on:
   push:
     branches:
       - main
+
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v3
-      - uses: pnpm/action-setup@v2
-        with:
-          version: 8
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'pnpm'
+
       - name: Install pnpm
         run: npm install -g pnpm@latest
-      - run: pnpm i && pnpm run build
+
+      - name: Install dependencies and build
+        run: |
+          pnpm i
+          pnpm run build
+
       - name: Run Unit Tests
         run: pnpm run coverage
-      - uses: FirebaseExtended/action-hosting-deploy@v0
+
+      - name: Deploy to Firebase Hosting (Staging)
+        uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_TODO_LIST_STAGING }}'
           channelId: live
           projectId: todo-list-staging
-      - name: Trigger Production Deployment
-        uses: peter-evans/repository-dispatch@v1
+
+      - name: Deploy to Firebase Hosting (Production)
+        uses: FirebaseExtended/action-hosting-deploy@v0
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          repository: jordanfox1/todo-list
-          event-type: deploy-production
+          repoToken: '${{ secrets.GITHUB_TOKEN }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_TODO_LIST_82592 }}'
+          channelId: live
+          projectId: todo-list-82592I

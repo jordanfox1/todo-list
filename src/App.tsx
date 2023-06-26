@@ -1,5 +1,5 @@
-import './App.css'
-import { TodoContainer } from './components/todoContainer/todoContainer'
+import './App.css';
+import { TodoContainer } from './components/todoContainer/todoContainer';
 
 
 // Import the functions you need from the SDKs you need
@@ -22,9 +22,9 @@ function App() {
 
   return (
     <>
-    <TodoContainer />
+      <TodoContainer />
     </>
-  )
+  );
 }
 
-export default App
+export default App;

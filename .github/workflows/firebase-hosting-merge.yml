@@ -23,7 +23,7 @@ jobs:
         run: npm install -g pnpm@latest
       - run: pnpm i && pnpm run build
       - name: Run Unit Tests
-        run: pnpm run test
+        run: pnpm run coverage
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'

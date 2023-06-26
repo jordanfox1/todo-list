@@ -5,9 +5,3 @@ describe('Todo component', () => {
     expect(true).toBeTruthy();
   });
 });
-
-describe('Todo component', () => {
-  it('should fail', () => {
-    expect(false).toBeTruthy();
-  });
-});

@@ -37,6 +37,7 @@ jobs:
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_TODO_LIST_STAGING }}'
+          channelId: live
           projectId: todo-list-staging
 
       - name: Deploy to Firebase Hosting (Production)
@@ -44,4 +45,5 @@ jobs:
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_TODO_LIST_82592 }}'
+          channelId: live
           projectId: todo-list-82592I

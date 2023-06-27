@@ -32,18 +32,23 @@ jobs:
       - name: Run Unit Tests
         run: pnpm run coverage
 
+      - name: Run Visual Regression Tests
+        run: |
+          pnpm add -g @testim/testim-cli
+          testim --token "${{ secrets.TESTIM_TOKEN }}" --project "${{ secets.TESTIM_PROJECT_ID }}" 
+
       - name: Deploy to Firebase Hosting (Staging)
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
-          repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_TODO_LIST_STAGING }}'
+          repoToken: "${{ secrets.GITHUB_TOKEN }}"
+          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_TODO_LIST_STAGING }}"
           channelId: live
           projectId: todo-list-staging
 
       - name: Deploy to Firebase Hosting (Production)
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
-          repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_TODO_LIST_82592 }}'
+          repoToken: "${{ secrets.GITHUB_TOKEN }}"
+          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_TODO_LIST_82592 }}"
           channelId: live
           projectId: todo-list-82592

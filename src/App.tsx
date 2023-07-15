@@ -13,6 +13,15 @@ console.log(import.meta.env.FIREBASE_PROJECT_ID, '-----------------');
 console.log(import.meta.env.FIREBASE_STORAGE_BUCKET, '-----------------');
 
 
+console.log(import.meta.env.PROD, '-----------------');
+console.log(import.meta.env.BASE_URL, '-----------------');
+console.log(import.meta.env.MODE, '-----------------');
+console.log(import.meta.env.SSR, '-----------------');
+console.log(import.meta.env.DEV, '-----------------');
+
+
+
+
 // Import the functions you need from the SDKs you need
 // import { initializeApp } from "firebase/app";
 // import { getAnalytics } from "firebase/analytics";

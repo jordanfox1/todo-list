@@ -26,12 +26,10 @@ jobs:
       - name: Install dependencies and build
         run: |
           pnpm i
-          pnpm run build
-          echo RUNNING LS -a
+          pnpm run build:staging
           ls -a
-          echo "Environment: ${{ env.NODE_ENV }}"
-          echo cat env!!!
-          cat .env
+          touch .env.staging
+          VITE_NODE_ENV=staging >> .env.staging
 
       - name: Run Unit Tests
         run: pnpm run coverage
@@ -49,11 +47,11 @@ jobs:
       #     pnpm add -g @testim/testim-cli --force
       #     testim --token ${{ secrets.TESTIM_TOKEN }} --project ${{ secrets.TESTIM_PROJECT_ID }} --grid "Testim-Grid"
 
-      - name: Deploy to Firebase Hosting (Production)
-        if: github.ref == 'refs/heads/main'
-        uses: FirebaseExtended/action-hosting-deploy@v0
-        with:
-          repoToken: "${{ secrets.GITHUB_TOKEN }}"
-          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_TODO_LIST_82592 }}"
-          channelId: live
-          projectId: todo-list-82592
+      # - name: Deploy to Firebase Hosting (Production)
+      #   if: github.ref == 'refs/heads/main'
+      #   uses: FirebaseExtended/action-hosting-deploy@v0
+      #   with:
+      #     repoToken: "${{ secrets.GITHUB_TOKEN }}"
+      #     firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_TODO_LIST_82592 }}"
+      #     channelId: live
+      #     projectId: todo-list-82592

@@ -16,7 +16,6 @@ jobs:
       - name: Install pnpm
         run: |
           npm install -g pnpm@latest
-          SHELL=$SHELL pnpm setup
 
       - name: Install dependencies and build
         run: |
@@ -28,7 +27,6 @@ jobs:
 
       - name: Run Visual Regression Tests
         run: |
-          pnpm add @testim/testim-cli
           testim --token ${{ secrets.TESTIM_TOKEN }} --project ${{ secrets.TESTIM_PROJECT_ID }} --grid "Testim-Grid"
 
       - name: Set environment variables

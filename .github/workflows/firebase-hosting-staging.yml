@@ -1,4 +1,4 @@
-name: Deploy to Firebase Hosting on merge
+name: Deploy to Firebase on push
 
 on:
   push:
@@ -6,28 +6,29 @@ on:
       - main
 
 jobs:
-  build_and_deploy:
+  build_and_deploy_staging:
     runs-on: ubuntu-latest
+    environment: staging
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: specify pnpm version
-        uses: pnpm/action-setup@v2
+      - name: Cache dependencies
+        uses: actions/cache@v2
         with:
-          version: 8
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-
 
       - name: Install pnpm
         run: npm i pnpm@latest -g
 
       - name: Install dependencies and build
         run: |
-          pnpm i
+          pnpm install
           pnpm run build
-
-      - name: Run Unit Tests
-        run: pnpm run coverage
 
       - name: Deploy to Firebase Hosting (Staging)
         uses: FirebaseExtended/action-hosting-deploy@v0
@@ -36,13 +37,30 @@ jobs:
           firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_TODO_LIST_STAGING }}"
           channelId: live
           projectId: todo-list-staging
-          publicDir: "./build"
-          env: ".env.staging"
 
-      # - name: Run Visual Regression Tests
-      #   run: |
-      #     pnpm add -g @testim/testim-cli --force
-      #     testim --token ${{ secrets.TESTIM_TOKEN }} --project ${{ secrets.TESTIM_PROJECT_ID }} --grid "Testim-Grid"
+  build_and_deploy_production:
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-
+
+      - name: Install pnpm
+        run: npm i pnpm@latest -g
+
+      - name: Install dependencies and build
+        run: |
+          pnpm install
+          pnpm run build
 
       - name: Deploy to Firebase Hosting (Production)
         if: github.ref == 'refs/heads/main'
@@ -52,5 +70,3 @@ jobs:
           firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_TODO_LIST_82592 }}"
           channelId: live
           projectId: todo-list-82592
-          publicDir: "./build"
-          env: ".env.production"

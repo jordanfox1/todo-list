@@ -6,7 +6,6 @@ console.log(import.meta.env.VITE_FIREBASE_MEASUREMENT_ID, '=====================
 console.log(import.meta.env.VITE_FIREBASE_PROJECT_ID, '=========================');
 console.log(import.meta.env.VITE_FIREBASE_STORAGE_BUCKET, '=========================');
 
-console.log(import.meta.env.NODE_ENV, '-----------------');
 console.log(import.meta.env.FIREBASE_APP_ID, '-----------------');
 console.log(import.meta.env.FIREBASE_MEASUREMENT_ID, '-----------------');
 console.log(import.meta.env.FIREBASE_PROJECT_ID, '-----------------');

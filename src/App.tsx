@@ -19,6 +19,9 @@ import { TodoContainer } from './components/todoContainer/todoContainer';
 // const analytics = getAnalytics(app);
 
 function App() {
+  console.log('HELLO')
+  const env = process.env.NODE_ENV
+  console.log('ENV', env)
 
   return (
     <>

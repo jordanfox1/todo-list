@@ -29,10 +29,11 @@ jobs:
           pnpm run build:production
           ls -a
           touch .env.production
+          touch test.txt
           VITE_NODE_ENV=production >> .env.production
           ls -a
           echo cat env !!!!
-          cat .env.production
+          cat test.txt
 
       - name: Run Unit Tests
         run: pnpm run coverage

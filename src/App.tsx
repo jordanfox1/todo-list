@@ -1,5 +1,6 @@
 import './App.css';
 import { TodoContainer } from './components/todoContainer/todoContainer';
+import dotenv from 'dotenv';
 
 
 // Import the functions you need from the SDKs you need
@@ -19,9 +20,10 @@ import { TodoContainer } from './components/todoContainer/todoContainer';
 // const analytics = getAnalytics(app);
 
 function App() {
-  console.log('HELLO')
-  const env = process.env.NODE_ENV
-  console.log('ENV', env)
+  dotenv.config();
+  console.log('HELLO');
+  const env = process.env.NODE_ENV;
+  console.log('ENV', env);
 
   return (
     <>

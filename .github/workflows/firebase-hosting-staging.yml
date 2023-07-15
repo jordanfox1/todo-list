@@ -28,11 +28,13 @@ jobs:
           pnpm i
           pnpm run build:staging
           ls -a
+          cd dist
           touch .env.staging
           echo "VITE_NODE_ENV=staging" >> .env.staging
           ls -a
           echo cat env !!!!
           cat .env.staging
+          cd ..
 
       - name: Run Unit Tests
         run: pnpm run coverage

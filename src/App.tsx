@@ -1,6 +1,16 @@
 import './App.css';
 import { TodoContainer } from './components/todoContainer/todoContainer';
 console.log(import.meta.env.VITE_NODE_ENV, '=========================');
+console.log(import.meta.env.VITE_FIREBASE_APP_ID, '=========================');
+console.log(import.meta.env.VITE_FIREBASE_MEASUREMENT_ID, '=========================');
+console.log(import.meta.env.VITE_FIREBASE_PROJECT_ID, '=========================');
+console.log(import.meta.env.VITE_FIREBASE_STORAGE_BUCKET, '=========================');
+
+console.log(import.meta.env.NODE_ENV, '-----------------');
+console.log(import.meta.env.FIREBASE_APP_ID, '-----------------');
+console.log(import.meta.env.FIREBASE_MEASUREMENT_ID, '-----------------');
+console.log(import.meta.env.FIREBASE_PROJECT_ID, '-----------------');
+console.log(import.meta.env.FIREBASE_STORAGE_BUCKET, '-----------------');
 
 
 // Import the functions you need from the SDKs you need

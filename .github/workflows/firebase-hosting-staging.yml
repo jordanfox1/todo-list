@@ -16,7 +16,7 @@ jobs:
       - name: Install pnpm
         run: |
           npm install -g pnpm@latest
-          pnpm setup
+          SHELL=$SHELL pnpm setup
 
       - name: Install dependencies and build
         run: |

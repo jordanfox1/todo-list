@@ -40,10 +40,11 @@ jobs:
           echo "VITE_FIREBASE_API_KEY=${{ secrets.FIREBASE_API_KEY_STAGING }}" > .env
           echo "VITE_FIREBASE_APP_ID=${{ secrets.FIREBASE_APP_ID_STAGING }}" >> .env
           echo "VITE_FIREBASE_AUTH_DOMAIN=${{ secrets.FIREBASE_AUTH_DOMAIN_STAGING }}" >> .env
-          echo "VITE_FIREBASE_MEASUREMENT_ID=${{ secrets.FIREBASE_MEASUREMENT_ID_STAGING }}" >> .env
           echo "VITE_FIREBASE_PROJECT_ID=${{ secrets.FIREBASE_PROJECT_ID_STAGING }}" >> .env
           echo "VITE_FIREBASE_STORAGE_BUCKET=${{ secrets.FIREBASE_STORAGE_BUCKET_STAGING }}" >> .env
           echo "VITE_NODE_ENV=${{ secrets.NODE_ENV_STAGING }}" >> .env
+          cat .env
+          ls
 
       - name: Deploy to Firebase Hosting (Staging)
         uses: FirebaseExtended/action-hosting-deploy@v0
@@ -60,10 +61,11 @@ jobs:
           echo "VITE_FIREBASE_API_KEY=${{ secrets.FIREBASE_API_KEY }}" > .env
           echo "VITE_FIREBASE_APP_ID=${{ secrets.FIREBASE_APP_ID }}" >> .env
           echo "VITE_FIREBASE_AUTH_DOMAIN=${{ secrets.FIREBASE_AUTH_DOMAIN }}" >> .env
-          echo "VITE_FIREBASE_MEASUREMENT_ID=${{ secrets.FIREBASE_MEASUREMENT_ID }}" >> .env
           echo "VITE_FIREBASE_PROJECT_ID=${{ secrets.FIREBASE_PROJECT_ID }}" >> .env
           echo "VITE_FIREBASE_STORAGE_BUCKET=${{ secrets.FIREBASE_STORAGE_BUCKET }}" >> .env
           echo "VITE_NODE_ENV=${{ secrets.NODE_ENV }}" >> .env
+          cat .env 
+          ls
 
       - name: Deploy to Firebase Hosting (Production)
         if: github.ref == 'refs/heads/main'

@@ -26,12 +26,13 @@ jobs:
       - name: Install dependencies and build
         run: |
           pnpm i
-          pnpm run build:staging
+          pnpm run build:production
           ls -a
-          touch .env.staging
-          VITE_NODE_ENV=staging >> .env.staging
+          touch .env.production
+          VITE_NODE_ENV=production >> .env.production
           ls -a
-          cat .env.staging
+          echo cat env !!!!
+          cat .env.production
 
       - name: Run Unit Tests
         run: pnpm run coverage

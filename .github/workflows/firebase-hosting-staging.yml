@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build_and_deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -16,18 +16,27 @@ jobs:
       - name: Install pnpm
         run: npm i pnpm@latest -g
 
-      - name: Install dependencies and build
-        run: |
-          pnpm i
-          pnpm run build
+      - name: Install dependencies
+        run: pnpm i
 
-      - name: Run Unit Tests
-        run: pnpm run coverage
+      - name: Build
+        run: pnpm run build
 
-      # - name: Run Visual Regression Tests
-      #   run: |
-      #     pnpm add -g @testim/testim-cli --force
-      #     testim --token ${{ secrets.TESTIM_TOKEN }} --project ${{ secrets.TESTIM_PROJECT_ID }} --grid "Testim-Grid"
+      - name: Archive build artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: build-artifacts
+          path: ./build
+
+  deploy_to_staging:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download build artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: build-artifacts
 
       - name: Deploy to Firebase Hosting (Staging)
         uses: FirebaseExtended/action-hosting-deploy@v0
@@ -39,8 +48,36 @@ jobs:
           publicDir: "./build"
           env: ".env.staging"
 
+  run_visual_regression_tests:
+    needs: deploy_to_staging
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download build artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: build-artifacts
+
+      - name: Install dependencies
+        run: pnpm i --frozen-lockfile
+
+      - name: Run Visual Regression Tests
+        run: |
+          pnpm add -g @testim/testim-cli --force
+          testim --token ${{ secrets.TESTIM_TOKEN }} --project ${{ secrets.TESTIM_PROJECT_ID }} --grid "Testim-Grid"
+
+  deploy_to_production:
+    needs: run_visual_regression_tests
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download build artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: build-artifacts
+
       - name: Deploy to Firebase Hosting (Production)
-        if: github.ref == 'refs/heads/main'
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"

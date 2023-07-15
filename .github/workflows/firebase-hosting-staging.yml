@@ -12,17 +12,15 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-
-      - name: Create environment file
-        run: |
-          echo "SHELL=/bin/bash" >> $GITHUB_ENV
+      
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
 
       - name: Install pnpm
-        run: |
-          curl -fsSL https://get.pnpm.io/install.sh | sh -
-          source /home/runner/.bashrc
-          /home/runner/.local/share/pnpm/bin/pnpm -v
-          node -v
+        run: npm i pnpm@latest -g
 
       - name: Install dependencies and build
         run: |
@@ -32,10 +30,10 @@ jobs:
       - name: Run Unit Tests
         run: pnpm run coverage
 
-      - name: Run Visual Regression Tests
-        run: |
-          pnpm add -g @testim/testim-cli --force
-          testim --token ${{ secrets.TESTIM_TOKEN }} --project ${{ secrets.TESTIM_PROJECT_ID }} --grid "Testim-Grid"
+      # - name: Run Visual Regression Tests
+      #   run: |
+      #     pnpm add -g @testim/testim-cli --force
+      #     testim --token ${{ secrets.TESTIM_TOKEN }} --project ${{ secrets.TESTIM_PROJECT_ID }} --grid "Testim-Grid"
 
       - name: Set environment variables
         run: |

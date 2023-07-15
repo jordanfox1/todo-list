@@ -29,6 +29,7 @@ jobs:
           pnpm run build
           echo RUNNING LS -a
           ls -a
+          echo "Environment: ${{ env.NODE_ENV }}"
           echo cat env!!!
           cat .env
 

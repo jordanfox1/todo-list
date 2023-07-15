@@ -30,6 +30,8 @@ jobs:
           ls -a
           touch .env.staging
           VITE_NODE_ENV=staging >> .env.staging
+          ls -a
+          cat .env.staging
 
       - name: Run Unit Tests
         run: pnpm run coverage

@@ -13,10 +13,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Use bash as shell
+      - name: Create environment file
         run: |
-          echo "::set-env name=SHELL::/bin/bash"
-          source ~/.bashrc
+          echo "SHELL=/bin/bash" >> $GITHUB_ENV
 
       - name: Install pnpm
         run: |

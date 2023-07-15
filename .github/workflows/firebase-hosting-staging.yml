@@ -28,7 +28,7 @@ jobs:
 
       - name: Run Visual Regression Tests
         run: |
-          pnpm add -g @testim/testim-cli
+          pnpm add @testim/testim-cli
           testim --token ${{ secrets.TESTIM_TOKEN }} --project ${{ secrets.TESTIM_PROJECT_ID }} --grid "Testim-Grid"
 
       - name: Set environment variables

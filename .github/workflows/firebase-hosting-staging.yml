@@ -23,18 +23,14 @@ jobs:
       - name: Install pnpm
         run: npm i pnpm@latest -g
 
-      - name: Install dependencies and build
+      - name: Install dependencies
+        run: pnpm i
+
+      - name: Build the code 
+        env:
+          VITE_NODE_ENV: ${{ secrets.VITE_NODE_ENV }}
         run: |
-          pnpm i
           pnpm run build:staging
-          ls -a
-          cd dist
-          touch .env.staging
-          echo "VITE_NODE_ENV=staging" >> .env.staging
-          ls -a
-          echo cat env !!!!
-          cat .env.staging
-          cd ..
 
       - name: Run Unit Tests
         run: pnpm run coverage

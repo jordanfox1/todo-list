@@ -1,7 +1,7 @@
 import './App.css';
 import { TodoContainer } from './components/todoContainer/todoContainer';
-console.log(import.meta.env.VITE_NODE_ENV)
-console.log(import.meta.env.VITE_NODE_ENV)
+console.log(import.meta.env.VITE_NODE_ENV);
+console.log(import.meta.env.VITE_NODE_ENV);
 console.log(import.meta.env.VITE_FIREBASE_APP_ID, '=========================');
 console.log(import.meta.env.VITE_FIREBASE_MEASUREMENT_ID, '=========================');
 console.log(import.meta.env.VITE_FIREBASE_PROJECT_ID, '=========================');
